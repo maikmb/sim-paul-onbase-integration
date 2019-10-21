@@ -12,5 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SimPaulOnbase.Application\SimPaulOnbase.Application.csproj" />
     <ProjectReference Include="..\SimPaulOnbase.Core\SimPaulOnbase.Core.csproj" />
+    <ProjectReference Include="..\SimPaulOnbase.Infraestructure\SimPaulOnbase.Infraestructure.csproj" />
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ namespace SimPaulOnbase.WorkerService.Workers
 {
     public class CustomerWorker : BackgroundService
     {
-        private readonly ICustomerIntegrationUseCase _customerIntegrationUseCase;'
+        private readonly ICustomerIntegrationUseCase _customerIntegrationUseCase;
         private readonly ILogger<CustomerWorker> _logger;
 
         public CustomerWorker(ILogger<CustomerWorker> logger, ICustomerIntegrationUseCase customerIntegrationUseCase)

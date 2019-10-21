@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimPaulOnbase.Application.Repositories;
 using SimPaulOnbase.Core.Customers;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace SimPaulOnbase.Infraestructure.ApiDataAccess
     /// <summary>
     /// CustomerRepository class
     /// </summary>
-    public class CustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         private HttpClient _client;
         private CustomerApiSettings _customerApiSettings;
