@@ -24,27 +24,15 @@ namespace SimPaulOnbase.WorkerService.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                try
-                {
-                    using (var scope = _serviceProvider.CreateScope())
-                    {
-                        var customerIntegrationUseCase = (ICustomerIntegrationUseCase)scope.ServiceProvider
-                          .GetRequiredService(typeof(ICustomerIntegrationUseCase));
 
-                        var output = customerIntegrationUseCase.Handle();
-                        this._logger.LogInformation($"Integration executed: ${ output.IntegratedCount } customers sended");
-                    }
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var customerIntegrationUseCase = (ICustomerIntegrationUseCase)scope.ServiceProvider
+                      .GetRequiredService(typeof(ICustomerIntegrationUseCase));
 
-                    
-                }
-                catch (CustomerApiRequestException ex)
-                {
-                    this._logger.LogError(ex, "Error on retrieve data from api. Check exception for details.");
-                }
-                catch (OnbaseConnectionException ex)
-                {
-                    this._logger.LogError(ex, "Cound't connect to onbase server. Check exception for details.");
-                }
+                    var output = customerIntegrationUseCase.Handle();
+                    this._logger.LogInformation($"Integration executed: ${ output.IntegratedCount } customers sended");
+                }               
 
                 await Task.Delay(1000, stoppingToken);
             }

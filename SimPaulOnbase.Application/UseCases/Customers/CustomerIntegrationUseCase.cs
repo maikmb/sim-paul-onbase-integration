@@ -2,6 +2,7 @@
 using SimPaulOnbase.Application.Boundaries.Customers;
 using SimPaulOnbase.Application.Repositories;
 using SimPaulOnbase.Application.Services;
+using SimPaulOnbase.Core.Exceptions;
 using System;
 
 namespace SimPaulOnbase.Application.UseCases.Customers
@@ -21,8 +22,8 @@ namespace SimPaulOnbase.Application.UseCases.Customers
         /// <param name="customerRepository"></param>
         /// <param name="customerOnbaseService"></param>
         public CustomerIntegrationUseCase(
-            ICustomerRepository customerRepository, 
-            ICustomerOnbaseService customerOnbaseService, 
+            ICustomerRepository customerRepository,
+            ICustomerOnbaseService customerOnbaseService,
             ILogger<CustomerIntegrationUseCase> logger)
         {
             _customerRepository = customerRepository;
@@ -37,9 +38,10 @@ namespace SimPaulOnbase.Application.UseCases.Customers
         /// <returns>CustomerIntegrationOutput</returns>
         public CustomerIntegrationOutput Handle()
         {
+
             try
             {
-                var divergedRegistrations = _customerRepository.DivergedRegistrations();                
+                var divergedRegistrations = _customerRepository.DivergedRegistrations();
 
                 foreach (var customer in divergedRegistrations)
                 {
@@ -47,12 +49,18 @@ namespace SimPaulOnbase.Application.UseCases.Customers
                 }
 
                 return new CustomerIntegrationOutput(divergedRegistrations.Count);
+
             }
-            catch (Exception ex)
+            catch (CustomerApiRequestException ex)
             {
-                this._logger.LogError(ex, "Error on executing Customer Integration Use Case. See exception for more details.");
-                throw ex;
+                this._logger.LogError(ex, "Error on retrieve data from api. Check exception for details.");
             }
+            catch (OnbaseConnectionException ex)
+            {
+                this._logger.LogError(ex, "Cound't connect to onbase server. Check exception for details.");
+            }
+
+            return new CustomerIntegrationOutput(0);
         }
     }
 }
