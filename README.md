@@ -59,7 +59,7 @@ Implementation of the **Sim Paul Onbase Integraions**. Use cases as central orga
 Application architecture is about usage, a good architecture screams the business use cases to the developer and framework concerns are implementation details. On **Sim Paul** integration the user can `Integrate to Onbase` an customer.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ivanpaulovich/clean-architecture-manga/master/docs/clean-architecture-manga-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
+  <img src="docs/clean-architecture-use-cases.png" alt=Clean Architecture Use Cases" style="max-width:100%;">
 </p>
 
 Following the list of Use Cases:
