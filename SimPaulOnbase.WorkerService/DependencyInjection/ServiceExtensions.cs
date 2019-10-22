@@ -21,6 +21,24 @@ namespace SimPaulOnbase.WorkerService.DependencyInjection
             services.AddSingleton(instance);
         }
 
+        public static void BindSingletonFromConfiguration<T>(this IServiceCollection services, IConfiguration configuration, string configurationKey) where T : class
+        {
+            T instance = (T)Activator.CreateInstance(typeof(T));
+            configuration.Bind(configurationKey, instance);
+            services.AddSingleton(instance);
+        }
+
+        public static void BindScopedFromConfiguration<T>(this IServiceCollection services, string configurationKey) where T : class
+        {
+            T instance = (T)Activator.CreateInstance(typeof(T));
+            var serviceProvider = services.BuildServiceProvider();
+            var configuration = serviceProvider.GetService<IConfiguration>();
+
+
+            configuration.Bind(configurationKey, instance);
+            services.AddScoped(instance.GetType());
+        }
+
         public static void BindSingleton<T>(this IServiceCollection services) where T : class
         {
             T instance = (T)Activator.CreateInstance(typeof(T));

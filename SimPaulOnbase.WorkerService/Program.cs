@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SimPaulOnbase.Infraestructure.ApiDataAccess;
 using SimPaulOnbase.WorkerService.DependencyInjection;
 using SimPaulOnbase.WorkerService.Workers;
 using System.IO;
@@ -30,6 +31,7 @@ namespace SimPaulOnbase.WorkerService
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddHttpClient();
                     services.AddAppSettings();
                     services.AddUseCases();
                     services.AddHostedService<CustomerWorker>();

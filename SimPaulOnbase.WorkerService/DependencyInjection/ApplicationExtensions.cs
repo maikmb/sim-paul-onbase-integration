@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimPaulOnbase.WorkerService.DependencyInjection
 {
@@ -7,8 +8,8 @@ namespace SimPaulOnbase.WorkerService.DependencyInjection
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
             services.AddScoped<Application.UseCases.Customers.ICustomerIntegrationUseCase, Application.UseCases.Customers.CustomerIntegrationUseCase>();
-            services.AddScoped<Application.Repositories.ICustomerRepository, Infraestructure.ApiDataAccess.CustomerRepository>();
-            services.AddScoped<Application.Services.ICustomerOnbaseService, Infraestructure.Services.Customers.CustomerOnbaseService>();
+            services.AddTransient<Application.Repositories.ICustomerRepository, Infraestructure.ApiDataAccess.CustomerRepository>();
+            services.AddTransient<Application.Services.ICustomerOnbaseService, Infraestructure.Services.Customers.CustomerOnbaseService>();
 
 
             return services;

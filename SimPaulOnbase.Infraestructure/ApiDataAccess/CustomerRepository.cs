@@ -13,20 +13,22 @@ namespace SimPaulOnbase.Infraestructure.ApiDataAccess
     /// </summary>
     public class CustomerRepository : ICustomerRepository
     {
-        private HttpClient _client;
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient _client;
         private CustomerApiSettings _customerApiSettings;
+        
 
         /// <summary>
         /// CustomerRepository constructor
         /// </summary>
         /// <param name="client"></param>
         /// <param name="customerApiSettings"></param>
-        public CustomerRepository(HttpClient client, CustomerApiSettings customerApiSettings)
+        public CustomerRepository(IHttpClientFactory clientFactory, CustomerApiSettings customerApiSettings)
         {
-            _client = client;
+            _clientFactory = clientFactory;
+            _client = _clientFactory.CreateClient();
             _customerApiSettings = customerApiSettings;
 
-            _client = client;
             _client.BaseAddress = new Uri(customerApiSettings.BaseUrl);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -20,14 +20,17 @@ namespace SimPaulOnbase.Application.UseCases.Customers
         /// </summary>
         /// <param name="customerRepository"></param>
         /// <param name="customerOnbaseService"></param>
-        public CustomerIntegrationUseCase(ICustomerRepository customerRepository, ICustomerOnbaseService customerOnbaseService, ILogger<CustomerIntegrationUseCase> logger)
+        public CustomerIntegrationUseCase(
+            ICustomerRepository customerRepository, 
+            ICustomerOnbaseService customerOnbaseService, 
+            ILogger<CustomerIntegrationUseCase> logger)
         {
             _customerRepository = customerRepository;
             _customerOnbaseService = customerOnbaseService;
             _logger = logger;
         }
 
-        
+
         /// <summary>
         /// Method Handle
         /// </summary>

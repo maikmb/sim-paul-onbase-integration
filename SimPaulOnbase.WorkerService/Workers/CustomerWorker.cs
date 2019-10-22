@@ -1,7 +1,9 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SimPaulOnbase.Application.UseCases.Customers;
 using SimPaulOnbase.Core.Exceptions;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,13 +11,13 @@ namespace SimPaulOnbase.WorkerService.Workers
 {
     public class CustomerWorker : BackgroundService
     {
-        private readonly ICustomerIntegrationUseCase _customerIntegrationUseCase;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<CustomerWorker> _logger;
 
-        public CustomerWorker(ILogger<CustomerWorker> logger, ICustomerIntegrationUseCase customerIntegrationUseCase)
+        public CustomerWorker(ILogger<CustomerWorker> logger, IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             _logger = logger;
-            _customerIntegrationUseCase = customerIntegrationUseCase;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -24,8 +26,16 @@ namespace SimPaulOnbase.WorkerService.Workers
             {
                 try
                 {
-                    var output = this._customerIntegrationUseCase.Handle();
-                    this._logger.LogInformation($"Integration executed: ${ output.IntegratedCount } customers sended");
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        var customerIntegrationUseCase = (ICustomerIntegrationUseCase)scope.ServiceProvider
+                          .GetRequiredService(typeof(ICustomerIntegrationUseCase));
+
+                        var output = customerIntegrationUseCase.Handle();
+                        this._logger.LogInformation($"Integration executed: ${ output.IntegratedCount } customers sended");
+                    }
+
+                    
                 }
                 catch (CustomerApiRequestException ex)
                 {
