@@ -39,22 +39,30 @@ namespace SimPaulOnbase.Infraestructure.ApiDataAccess
         /// Get diverged registrations from SimPaul Customer API
         /// </summary>
         /// <returns></returns>
+        //public IList<Customer> DivergedRegistrations()
+        //{
+        //    var requestMessage = new HttpRequestMessage(HttpMethod.Get, _customerApiSettings.DivergedResource);
+
+        //    var responseMessage = _client.SendAsync(requestMessage)
+        //            .GetAwaiter()
+        //            .GetResult();          
+
+        //    responseMessage.EnsureSuccessStatusCode();
+
+        //    string responseContent = responseMessage.Content
+        //          .ReadAsStringAsync()
+        //          .GetAwaiter()
+        //          .GetResult();
+
+        //    var divergedRegistrations = JsonConvert.DeserializeObject<List<Customer>>(responseContent);
+        //    return divergedRegistrations;
+        //}
+
         public IList<Customer> DivergedRegistrations()
         {
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, _customerApiSettings.DivergedResource);
-
-            var responseMessage = _client.SendAsync(requestMessage)
-                    .GetAwaiter()
-                    .GetResult();          
-
-            responseMessage.EnsureSuccessStatusCode();
-
-            string responseContent = responseMessage.Content
-                  .ReadAsStringAsync()
-                  .GetAwaiter()
-                  .GetResult();
+            List<Customer> divergedRegistrations = new List<Customer>();
+            divergedRegistrations.Add(new Customer { Id = "COD200000", Name = "Joana Maria da Fonseca", Document = "510.761.510-43", Email = "joana@hotmail.com", Mother = "Maria Luiza Magalhaes" });
             
-            var divergedRegistrations = JsonConvert.DeserializeObject<List<Customer>>(responseContent);
             return divergedRegistrations;
         }
     }

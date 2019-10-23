@@ -32,17 +32,22 @@ namespace SimPaulOnbase.Infraestructure.Services.Customers
             var onbaseDocument = this.StoreNewUnityForm(onbaseStore);
             if (onbaseDocument != null)
             {
-                this.UploadUnityFormImage(_customer.Photo, "CPF_CNPJ", _customer.Document);
+                this.UploadUnityFormImage(_customer.Photo, "CPF", _customer.Document);
             }
         }
 
         private void MapCustomerFieldsToOnbase(Customer customer, StoreNewUnityFormProperties onbaseStore)
         {
-            onbaseStore.AddKeyword("CPF_CNPJ", customer.Document);
-            onbaseStore.AddField("COD_CLIENTE", customer.Id);
-            onbaseStore.AddField("NOME_CLIENTE", customer.Name);
-            onbaseStore.AddField("NOME_MAE_CLIENTE", customer.Mother);
-            onbaseStore.AddField("EMAIL", customer.Email);
+            onbaseStore.AddKeyword("Código do Cliente", customer.Id);
+            onbaseStore.AddKeyword("Nome do Cliente", customer.Name);
+            onbaseStore.AddKeyword("CPF", customer.Document);
+            onbaseStore.AddKeyword("Nome da Mãe", customer.Mother);
+            onbaseStore.AddKeyword("E-Mail", customer.Email);
+
+            //onbaseStore.AddField("COD_CLIENTE", customer.Id);
+            //onbaseStore.AddField("NOME_CLIENTE", customer.Name);
+            //onbaseStore.AddField("NOME_MAE_CLIENTE", customer.Mother);
+            //onbaseStore.AddField("EMAIL", customer.Email);
         }
     }
 }

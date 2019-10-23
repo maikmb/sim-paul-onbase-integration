@@ -8,7 +8,7 @@
         /// <summary>
         /// Customer Id
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Customer name

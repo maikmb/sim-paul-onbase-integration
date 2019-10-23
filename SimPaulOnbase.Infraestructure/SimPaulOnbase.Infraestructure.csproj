@@ -16,10 +16,13 @@
 
   <ItemGroup>
     <Reference Include="Hyland.Types">
-      <HintPath>..\packages\OnbaseUnity\Hyland.Types.dll</HintPath>
+      <HintPath>..\packages\OnbaseUnity_19\Hyland.Types.dll</HintPath>
     </Reference>
     <Reference Include="Hyland.Unity">
-      <HintPath>..\packages\OnbaseUnity\Hyland.Unity.dll</HintPath>
+      <HintPath>..\packages\OnbaseUnity_19\Hyland.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <HintPath>..\packages\System.Web.Services\System.Web.Services.dll</HintPath>
     </Reference>
   </ItemGroup>
 
